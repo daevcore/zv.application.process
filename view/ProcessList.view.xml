@@ -1,0 +1,46 @@
+<core:View controllerName="zv.application.process.controller.ProcessList" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Page title="{i18n>ProcessListTitle}">
+		<headerContent>
+			<Button press="onPressLoadData" text="Load data"></Button>
+		</headerContent>
+		<content>
+			<Table busyIndicatorDelay="0" class="sapUiResponsiveMargin" id="idProcessList" items="{ProcessListData>/List}" width="auto" fixedLayout="false">
+				<columns>
+					<Column>
+						<header>
+							<Label text="{i18n>ProcessListColumnExternalKey}"></Label>
+						</header>
+					</Column>
+					<Column>
+						<header>
+							<Label text="{i18n>ProcessListColumnName}"></Label>
+						</header>
+					</Column>
+					<Column>
+						<header>
+							<Label text="{i18n>ProcessListColumnStepName}"></Label>
+						</header>
+					</Column>
+					<Column>
+						<header>
+							<Label text="{i18n>ProcessListColumnAssignee}"></Label>
+						</header>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem press="onPressListItem" type="Navigation">
+						<cells>
+							<ObjectIdentifier title="{ProcessListData>ExternalKey}"/>
+							<Text text="{ProcessListData>Name}"/>
+							<Text text="{ProcessListData>ProcessStepCurrent/Text}"/>
+							
+							<Text text="{ProcessListData>AssigneeUsername}" visible="{= ${ProcessListData>AssigneeUsername} !== '' }"/>
+							<Text text="{ProcessListData>AssigneeUsergroup}" visible="{= ${ProcessListData>AssigneeUsergroup} !== '' }"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</core:View>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="/ZCO/GW_PROCESS_01_SRV" xml:lang="en" sap:schema-version="1 "
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Process" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Objid"/>
+                </Key>
+                <Property Name="Objid" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="OBJID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExternalKey" Type="Edm.String" Nullable="false" MaxLength="15" sap:label="ID number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="60" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AssigneeUsername" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AssigneeUsergroup" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="User group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ProcessStepSet" Relationship="/ZCO/GW_PROCESS_01_SRV.ProcessToProcessStep" FromRole="FromRole_ProcessToProcessStep" ToRole="ToRole_ProcessToProcessStep"/>
+                <NavigationProperty Name="ProcessAttributeSet" Relationship="/ZCO/GW_PROCESS_01_SRV.ProcessToProcessAttribute" FromRole="FromRole_ProcessToProcessAttribute" ToRole="ToRole_ProcessToProcessAttribute"/>
+                <NavigationProperty Name="ProcessStepCurrent" Relationship="/ZCO/GW_PROCESS_01_SRV.ProcessToProcessStepCurrent" FromRole="FromRole_ProcessToProcessStepCurrent" ToRole="ToRole_ProcessToProcessStepCurrent"/>
+            </EntityType>
+            <EntityType Name="ProcessAttribute" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Objid"/>
+                    <PropertyRef Name="Attribute"/>
+                </Key>
+                <Property Name="Objid" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="OBJID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Attribute" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Attribute" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value" Type="Edm.String" Nullable="false" sap:label="Remark" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ProcessStep" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Objid"/>
+                    <PropertyRef Name="Step"/>
+                </Key>
+                <Property Name="Objid" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="OBJID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Step" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Step" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Step name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Text" Type="Edm.String" Nullable="false" MaxLength="60" sap:label="Step text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Descr" Type="Edm.String" Nullable="false" sap:label="Step description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Step type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ProcessStepFeatureSet" Relationship="/ZCO/GW_PROCESS_01_SRV.ProcessStepToProcessStepFeature" FromRole="FromRole_ProcessStepToProcessStepFeature" ToRole="ToRole_ProcessStepToProcessStepFeature"/>
+                <NavigationProperty Name="ProcessStepTransitionSet02" Relationship="/ZCO/GW_PROCESS_01_SRV.ProcessStepToProcessStepTransitionBack" FromRole="FromRole_ProcessStepToProcessStepTransitionBack" ToRole="ToRole_ProcessStepToProcessStepTransitionBack"/>
+                <NavigationProperty Name="ProcessStepTransitionSet01" Relationship="/ZCO/GW_PROCESS_01_SRV.ProcessStepToProcessStepTransitionNext" FromRole="FromRole_ProcessStepToProcessStepTransitionNext" ToRole="ToRole_ProcessStepToProcessStepTransitionNext"/>
+            </EntityType>
+            <EntityType Name="ProcessStepFeature" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Objid"/>
+                    <PropertyRef Name="Step"/>
+                    <PropertyRef Name="Feature"/>
+                </Key>
+                <Property Name="Objid" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="OBJID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Step" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Step" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Feature" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Step feature" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ProcessStepTransition" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Objid"/>
+                    <PropertyRef Name="Step"/>
+                    <PropertyRef Name="StepTarget"/>
+                </Key>
+                <Property Name="Objid" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="OBJID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Step" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Step" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="StepTarget" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Step" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <ComplexType Name="MessageType">
+                <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" sap:label="Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </ComplexType>
+            <Association Name="ProcessStepToProcessStepFeature" sap:content-version="1">
+                <End Type="/ZCO/GW_PROCESS_01_SRV.ProcessStep" Multiplicity="1" Role="FromRole_ProcessStepToProcessStepFeature"/>
+                <End Type="/ZCO/GW_PROCESS_01_SRV.ProcessStepFeature" Multiplicity="*" Role="ToRole_ProcessStepToProcessStepFeature"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProcessStepToProcessStepFeature">
+                        <PropertyRef Name="Step"/>
+                        <PropertyRef Name="Objid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProcessStepToProcessStepFeature">
+                        <PropertyRef Name="Step"/>
+                        <PropertyRef Name="Objid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProcessStepToProcessStepTransitionNext" sap:content-version="1">
+                <End Type="/ZCO/GW_PROCESS_01_SRV.ProcessStep" Multiplicity="1" Role="FromRole_ProcessStepToProcessStepTransitionNext"/>
+                <End Type="/ZCO/GW_PROCESS_01_SRV.ProcessStepTransition" Multiplicity="*" Role="ToRole_ProcessStepToProcessStepTransitionNext"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProcessStepToProcessStepTransitionNext">
+                        <PropertyRef Name="Objid"/>
+                        <PropertyRef Name="Step"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProcessStepToProcessStepTransitionNext">
+                        <PropertyRef Name="Objid"/>
+                        <PropertyRef Name="Step"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProcessStepToProcessStepTransitionBack" sap:content-version="1">
+                <End Type="/ZCO/GW_PROCESS_01_SRV.ProcessStep" Multiplicity="1" Role="FromRole_ProcessStepToProcessStepTransitionBack"/>
+                <End Type="/ZCO/GW_PROCESS_01_SRV.ProcessStepTransition" Multiplicity="*" Role="ToRole_ProcessStepToProcessStepTransitionBack"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProcessStepToProcessStepTransitionBack">
+                        <PropertyRef Name="Step"/>
+                        <PropertyRef Name="Objid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProcessStepToProcessStepTransitionBack">
+                        <PropertyRef Name="Step"/>
+                        <PropertyRef Name="Objid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProcessToProcessAttribute" sap:content-version="1">
+                <End Type="/ZCO/GW_PROCESS_01_SRV.Process" Multiplicity="1" Role="FromRole_ProcessToProcessAttribute"/>
+                <End Type="/ZCO/GW_PROCESS_01_SRV.ProcessAttribute" Multiplicity="*" Role="ToRole_ProcessToProcessAttribute"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProcessToProcessAttribute">
+                        <PropertyRef Name="Objid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProcessToProcessAttribute">
+                        <PropertyRef Name="Objid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProcessToProcessStep" sap:content-version="1">
+                <End Type="/ZCO/GW_PROCESS_01_SRV.Process" Multiplicity="1" Role="FromRole_ProcessToProcessStep"/>
+                <End Type="/ZCO/GW_PROCESS_01_SRV.ProcessStep" Multiplicity="*" Role="ToRole_ProcessToProcessStep"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProcessToProcessStep">
+                        <PropertyRef Name="Objid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProcessToProcessStep">
+                        <PropertyRef Name="Objid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProcessToProcessStepCurrent" sap:content-version="1">
+                <End Type="/ZCO/GW_PROCESS_01_SRV.Process" Multiplicity="1" Role="FromRole_ProcessToProcessStepCurrent"/>
+                <End Type="/ZCO/GW_PROCESS_01_SRV.ProcessStep" Multiplicity="1" Role="ToRole_ProcessToProcessStepCurrent"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProcessToProcessStepCurrent">
+                        <PropertyRef Name="Objid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProcessToProcessStepCurrent">
+                        <PropertyRef Name="Objid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="/ZCO/GW_PROCESS_01_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ProcessAttributeSet" EntityType="/ZCO/GW_PROCESS_01_SRV.ProcessAttribute" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ProcessStepSet" EntityType="/ZCO/GW_PROCESS_01_SRV.ProcessStep" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ProcessStepFeatureSet" EntityType="/ZCO/GW_PROCESS_01_SRV.ProcessStepFeature" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ProcessStepTransitionSet" EntityType="/ZCO/GW_PROCESS_01_SRV.ProcessStepTransition" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ProcessSet" EntityType="/ZCO/GW_PROCESS_01_SRV.Process" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="ProcessStepToProcessStepFeatureSet" Association="/ZCO/GW_PROCESS_01_SRV.ProcessStepToProcessStepFeature" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProcessStepSet" Role="FromRole_ProcessStepToProcessStepFeature"/>
+                    <End EntitySet="ProcessStepFeatureSet" Role="ToRole_ProcessStepToProcessStepFeature"/>
+                </AssociationSet>
+                <AssociationSet Name="ProcessToProcessStepCurrentSet" Association="/ZCO/GW_PROCESS_01_SRV.ProcessToProcessStepCurrent" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProcessSet" Role="FromRole_ProcessToProcessStepCurrent"/>
+                    <End EntitySet="ProcessStepSet" Role="ToRole_ProcessToProcessStepCurrent"/>
+                </AssociationSet>
+                <AssociationSet Name="ProcessToProcessAttributeSet" Association="/ZCO/GW_PROCESS_01_SRV.ProcessToProcessAttribute" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProcessSet" Role="FromRole_ProcessToProcessAttribute"/>
+                    <End EntitySet="ProcessAttributeSet" Role="ToRole_ProcessToProcessAttribute"/>
+                </AssociationSet>
+                <AssociationSet Name="ProcessStepToProcessStepTransitionBacSet" Association="/ZCO/GW_PROCESS_01_SRV.ProcessStepToProcessStepTransitionBack" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProcessStepSet" Role="FromRole_ProcessStepToProcessStepTransitionBack"/>
+                    <End EntitySet="ProcessStepTransitionSet" Role="ToRole_ProcessStepToProcessStepTransitionBack"/>
+                </AssociationSet>
+                <AssociationSet Name="ProcessStepToProcessStepTransitionNexSet" Association="/ZCO/GW_PROCESS_01_SRV.ProcessStepToProcessStepTransitionNext" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProcessStepSet" Role="FromRole_ProcessStepToProcessStepTransitionNext"/>
+                    <End EntitySet="ProcessStepTransitionSet" Role="ToRole_ProcessStepToProcessStepTransitionNext"/>
+                </AssociationSet>
+                <AssociationSet Name="ProcessToProcessStepSet" Association="/ZCO/GW_PROCESS_01_SRV.ProcessToProcessStep" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProcessSet" Role="FromRole_ProcessToProcessStep"/>
+                    <End EntitySet="ProcessStepSet" Role="ToRole_ProcessToProcessStep"/>
+                </AssociationSet>
+                <FunctionImport Name="doAction" ReturnType="Collection(/ZCO/GW_PROCESS_01_SRV.MessageType)" m:HttpMethod="GET">
+                    <Parameter Name="Id" Type="Edm.String" Mode="In" MaxLength="30"/>
+                </FunctionImport>
+                <FunctionImport Name="doTransition" ReturnType="Collection(/ZCO/GW_PROCESS_01_SRV.MessageType)" m:HttpMethod="GET">
+                    <Parameter Name="Step" Type="Edm.String" Mode="In" MaxLength="10"/>
+                    <Parameter Name="Comment" Type="Edm.String" Mode="In"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="http://VM-ZVSAPLX12.ZETVISIONS.DE:8080/sap/opu/odata/zco/GW_PROCESS_01_SRV/$metadata"
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+                <atom:link rel="latest-version" href="http://VM-ZVSAPLX12.ZETVISIONS.DE:8080/sap/opu/odata/zco/GW_PROCESS_01_SRV/$metadata"
+                    xmlns:atom="http://www.w3.org/2005/Atom"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>

@@ -2,7 +2,7 @@
 Process with step approval / rejection
 
 # ToDo
-- *App frame*
+- **App frame**
 - List view
 - Detail view
 - Detail view with area for process information

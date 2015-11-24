@@ -1,3 +1,16 @@
 {
-  "README.md": "1448351311000"
+  "webapp/localService/metadata.xml": "1448357421000",
+  "manifest.json": "1448364532000",
+  "Component.js": "1448357704000",
+  "view/ProcessDetails.view.xml": "1448382147000",
+  "view/ProcessList.view.xml": "1448382582000",
+  "view/App.view.xml": "1448361033000",
+  "test/index.html": "1448357376000",
+  "css/style.css": "1448356613000",
+  "i18n/i18n.properties": "1448382599000",
+  "model/models.js": "1448356613000",
+  "README.md": "1448382918000",
+  "controller/ProcessDetails.controller.js": "1448365660000",
+  "controller/ProcessList.controller.js": "1448371083000",
+  "controller/App.controller.js": "1448363240000"
 }
