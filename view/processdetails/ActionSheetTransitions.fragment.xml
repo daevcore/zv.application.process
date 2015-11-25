@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<ActionSheet placement="Auto" showCancelButton="true" title="{i18n>ProcessDetailsTransitionSelect}" buttons="{TransitionSet>/results}">
+		<buttons>
+			<Button press="onPressProcessStepTransition" text="{TransitionSet>StepTarget}"/>
+		</buttons>
+	</ActionSheet>
+</core:FragmentDefinition>

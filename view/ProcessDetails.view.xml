@@ -1,6 +1,11 @@
 <core:View controllerName="zv.application.process.controller.ProcessDetails" xmlns:core="sap.ui.core"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<Page navButtonPress="onPressNavButton" showNavButton="true" title="{i18n>ProcessDetailsTitle}">
+	<Page id="idPageProcessDetails" navButtonPress="onPressNavButton" showNavButton="true" title="{i18n>ProcessDetailsTitle}" busyIndicatorDelay="0">
+		<headerContent>
+			<Button press="onPressLoadData" icon="sap-icon://refresh"></Button>
+			<Button press="onPressSettings" icon="sap-icon://action-settings"></Button>
+		</headerContent>
+	
 		<content>
 			<ObjectHeader fullScreenOptimized="false" number="{ProcessDetailsData>/ExternalKey}" responsive="true" title="{ProcessDetailsData>/Name}" intro="{ProcessDetailsData>/ProcessStepCurrent/Text}">
 				<attributes>
@@ -38,5 +43,13 @@
 				</headerContainer>
 			</ObjectHeader>
 		</content>
+		
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button class="sapUiSmallMarginEnd" press="onPressProcessStepNext" text="{i18n>ProcessDetailsStepConfirm}" type="Accept" visible="{path: 'ProcessDetailsData>/ProcessStepCurrent', formatter: '.formatter.isVisibleStepConfirm'}"/>
+				<Button class="sapUiSmallMarginEnd" press="onPressProcessStepBack" text="{i18n>ProcessDetailsStepBack}" type="Reject" visible="{path: 'ProcessDetailsData>/ProcessStepCurrent', formatter: '.formatter.isVisibleStepBack'}"/>
+			</Toolbar>
+		</footer>
 	</Page>
 </core:View>

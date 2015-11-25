@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Dialog title="{i18n>ProcessDetailsDialogTransitionCommentTitle}">
+		<content>
+			<TextArea width="100%" placeholder="{i18n>ProcessDetailsDialogTransitionCommentPlaceholder}" liveChange="onDialogTransitionCommentLiveChange" value="{TransitionComment>/Comment}" cols="50" rows="5"></TextArea>
+		</content>
+		
+		<beginButton>
+			<Button icon="sap-icon://accept" press="onDialogTransitionCommentConfirm" text="{i18n>ProcessDetailsDialogTransitionCommentConfirm}" enabled="false"/>
+		</beginButton>
+		
+		<endButton>
+			<Button icon="sap-icon://decline" press="onDialogTransitionCommentCancel" text="{i18n>ProcessDetailsDialogTransitionCommentCancel}"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
