@@ -37,7 +37,10 @@ sap.ui.define([
 		},
 
 		onPressNavButton: function() {
-			console.log(this);
+			this._navToList();
+		},
+		
+		_navToList: function(){
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 
@@ -206,16 +209,18 @@ sap.ui.define([
 					this.getView().getModel("ProcessDetailsData").setData(oData);
 					this.getView().byId("idPageProcessDetails").setBusy(false);
 					
-					
 					this._loadProcessStepData();
-					
 					
 					if(oData.ProcessStepCurrent.IsCompatibleUI5 === false){
 						sap.m.MessageBox.show("This step is not compatible with UI5!", {
 						    icon: sap.m.MessageBox.Icon.ERROR,
-						    title: "ERROR"
-						    //onClose: this.onPressNavButton
+						    title: "ERROR",
+						    onClose: function() {
+						    	this._navToList();
+						    }.bind(this)
 						});
+					}else{
+						// ...
 					}
 				}.bind(this),
 				"error": function(oError) {
