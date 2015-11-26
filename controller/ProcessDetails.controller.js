@@ -1,9 +1,11 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
-	"zv/application/process/model/formatter"
+	"zv/application/process/model/formatter",
+	'sap/m/MessageToast',
+	'sap/m/MessageBox'
 	
-], function(Controller, History, formatter) {
+], function(Controller, History, formatter, MessageToast, MessageBox) {
 	"use strict";
 
 	return Controller.extend("zv.application.process.controller.ProcessDetails", {
@@ -12,7 +14,15 @@ sap.ui.define([
 		_actionSheetTransitions: null,
 		_dialogTransitionComment: null,
 		_objid: null,
-
+		
+		_messageError: function(oData){
+			console.log(oData);
+			
+			var oErrorBody = JSON.parse(oData.responseText);
+			//MessageToast.show(oErrorBody.error.message.value);
+			MessageBox.show(oErrorBody.error.message.value, sap.m.MessageBox.Icon.ERROR, "ERROR");
+		},
+		
 		onInit: function() {
 			this._initDetailsModel();
 			this._initActionSheetSettings();
@@ -27,6 +37,7 @@ sap.ui.define([
 		},
 
 		onPressNavButton: function() {
+			console.log(this);
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 
@@ -91,8 +102,7 @@ sap.ui.define([
 		},
 		
 		_processStepTransition: function(oTransition){
-			var bIsCommentNeeded = true;
-			if(bIsCommentNeeded === true){
+			if(oTransition.CommentRequired === true){
 				this._openDialogTransitionComment(oTransition);
 			}else{
 				this._doTransition(oTransition, "");
@@ -135,20 +145,21 @@ sap.ui.define([
 		
 		_doTransition: function(oTransition, sComment){
 			this.getOwnerComponent().getModel("oData").callFunction("/doTransition", {
-				"method": "GET",
-				"urlParameters": {
+				"method": "POST",
+				"urlParameters":{
 					Objid: oTransition.Objid,
 					Step: oTransition.Step,
 					StepTarget: oTransition.StepTarget,
 					Comment: sComment
 				},
 				"success": function(oData) {
-					console.log(oData);
+					this._loadProcessDetails();
 				}.bind(this),
 				"error": function(oError) {
-					console.log(oError);
-				}
+					this._messageError(oError);
+				}.bind(this)
 			});
+			
 		},
 		
 		_doAction: function(sActionId, sActionParameter){
@@ -163,8 +174,8 @@ sap.ui.define([
 					console.log(oData);
 				}.bind(this),
 				"error": function(oError) {
-					console.log(oError);
-				}
+					this._messageError(oError);
+				}.bind(this)
 			});
 		},
 		
@@ -181,8 +192,8 @@ sap.ui.define([
 					console.log(oData);
 				}.bind(this),
 				"error": function(oError) {
-					console.log(oError);
-				}
+					this._messageError(oError);
+				}.bind(this)
 			});
 		},
 		
@@ -194,10 +205,62 @@ sap.ui.define([
 				"success": function(oData) {
 					this.getView().getModel("ProcessDetailsData").setData(oData);
 					this.getView().byId("idPageProcessDetails").setBusy(false);
+					
+					
+					this._loadProcessStepData();
+					
+					
+					if(oData.ProcessStepCurrent.IsCompatibleUI5 === false){
+						sap.m.MessageBox.show("This step is not compatible with UI5!", {
+						    icon: sap.m.MessageBox.Icon.ERROR,
+						    title: "ERROR"
+						    //onClose: this.onPressNavButton
+						});
+					}
 				}.bind(this),
 				"error": function(oError) {
-					console.log(oError);
-				}
+					this._messageError(oError);
+				}.bind(this)
+			});
+		},
+		
+		_loadProcessStepData: function(){
+			var sStepType = this.getView().getModel("ProcessDetailsData").getProperty("/ProcessStepCurrent/Type");
+			if(sStepType === 'SIMPLE_MODE_EDIT'){
+				this._loadProcessStepDataSMObjEdit();
+			}else{
+				this.getView().byId("idProcessStepContent").destroyContent();
+			}
+		},
+		
+		_loadProcessStepDataSMObjEdit: function(){
+			var sObjid = this.getView().getModel("ProcessDetailsData").getProperty("/ProcessStepCurrent/Objid");
+			var sStep = this.getView().getModel("ProcessDetailsData").getProperty("/ProcessStepCurrent/Step");
+
+			this.getOwnerComponent().getModel("oData").read("/ProcessStepDataSMObjAttrSet", {
+				"filters": [
+					new sap.ui.model.Filter({
+						path: "Objid",
+						operator: sap.ui.model.FilterOperator.EQ,
+						value1: sObjid
+					}),
+					new sap.ui.model.Filter({
+						path: "Step",
+						operator: sap.ui.model.FilterOperator.EQ,
+						value1: sStep
+					})
+				],
+				"success": function(oData) {
+					console.log(oData);
+					
+					var oView = new sap.ui.xmlview("zv.application.process.view.processdetails.stepdata.SMObjEdit");
+					oView.setModel(new sap.ui.model.json.JSONModel(oData), "ProcessStepData");
+					this.getView().byId("idProcessStepContent").destroyContent();
+					this.getView().byId("idProcessStepContent").addContent(oView);
+				}.bind(this),
+				"error": function(oError) {
+					this._messageError(oError);
+				}.bind(this)
 			});
 		},
 		

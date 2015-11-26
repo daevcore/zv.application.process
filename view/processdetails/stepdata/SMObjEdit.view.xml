@@ -1,0 +1,23 @@
+<core:View controllerName="zv.application.process.view.processdetails.stepdata.SMObjEdit" xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<!--
+	<form:SimpleForm editable="true" content="{ProcessStepData>/results}">
+	<form:content>
+
+	</form:content>
+	</form:SimpleForm>
+	-->
+	<VBox items="{ProcessStepData>/results}">
+		<items>
+			<HBox>
+				<items>
+					<Label text="{ProcessStepData>AttributeLabel}"></Label>
+					<Input value="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'IN' }"></Input>
+					<Input value="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'DT' }"></Input>
+					<CheckBox selected="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'CB' }"></CheckBox>
+				</items>
+			</HBox>
+		</items>
+	</VBox>
+	<Button press="onButtonSave" text="Save"></Button>
+</core:View>

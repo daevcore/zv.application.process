@@ -21,8 +21,7 @@
 				<headerContainer>
 					<IconTabBar class="sapUiResponsiveContentPadding" upperCase="true">
 						<items>
-							<IconTabFilter icon="sap-icon://internet-browser">
-								<Text text="Content ..."/>
+							<IconTabFilter id="idProcessStepContent" icon="sap-icon://internet-browser">
 							</IconTabFilter>
 							
 							<IconTabFilter icon="sap-icon://comment">
