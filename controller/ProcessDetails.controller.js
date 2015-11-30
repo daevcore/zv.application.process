@@ -233,6 +233,8 @@ sap.ui.define([
 			var sStepType = this.getView().getModel("ProcessDetailsData").getProperty("/ProcessStepCurrent/Type");
 			if(sStepType === 'SIMPLE_MODE_EDIT'){
 				this._loadProcessStepDataSMObjEdit();
+			}else if(sStepType === 'SIMPLE_MODE_VIEW'){
+				this._loadProcessStepDataSMObjView();
 			}else{
 				this.getView().byId("idProcessStepContent").destroyContent();
 			}
@@ -256,9 +258,36 @@ sap.ui.define([
 					})
 				],
 				"success": function(oData) {
-					console.log(oData);
-					
 					var oView = new sap.ui.xmlview("zv.application.process.view.processdetails.stepdata.SMObjEdit");
+					oView.setModel(new sap.ui.model.json.JSONModel(oData), "ProcessStepData");
+					this.getView().byId("idProcessStepContent").destroyContent();
+					this.getView().byId("idProcessStepContent").addContent(oView);
+				}.bind(this),
+				"error": function(oError) {
+					this._messageError(oError);
+				}.bind(this)
+			});
+		},
+		
+		_loadProcessStepDataSMObjView: function(){
+			var sObjid = this.getView().getModel("ProcessDetailsData").getProperty("/ProcessStepCurrent/Objid");
+			var sStep = this.getView().getModel("ProcessDetailsData").getProperty("/ProcessStepCurrent/Step");
+
+			this.getOwnerComponent().getModel("oData").read("/ProcessStepDataSMObjAttrSet", {
+				"filters": [
+					new sap.ui.model.Filter({
+						path: "Objid",
+						operator: sap.ui.model.FilterOperator.EQ,
+						value1: sObjid
+					}),
+					new sap.ui.model.Filter({
+						path: "Step",
+						operator: sap.ui.model.FilterOperator.EQ,
+						value1: sStep
+					})
+				],
+				"success": function(oData) {
+					var oView = new sap.ui.xmlview("zv.application.process.view.processdetails.stepdata.SMObjView");
 					oView.setModel(new sap.ui.model.json.JSONModel(oData), "ProcessStepData");
 					this.getView().byId("idProcessStepContent").destroyContent();
 					this.getView().byId("idProcessStepContent").addContent(oView);

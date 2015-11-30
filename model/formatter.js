@@ -49,5 +49,9 @@ sap.ui.define([], function () {
 				//return this._isStepFeatureActive("TRANSITION_BACK", oDataStep.ProcessStepFeatureSet);
 			}
 		}
+		
+		// --------------------------------------------------
+		// OTHER
+		// --------------------------------------------------
 	};
 });

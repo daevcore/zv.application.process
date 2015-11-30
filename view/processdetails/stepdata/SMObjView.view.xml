@@ -1,0 +1,26 @@
+<core:View controllerName="zv.application.process.view.processdetails.stepdata.SMObjView" xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:commons="sap.ui.commons">
+	<!--
+	<form:SimpleForm editable="true" content="{ProcessStepData>/results}">
+	<form:content>
+
+	</form:content>
+	</form:SimpleForm>
+	-->
+	<VBox items="{ProcessStepData>/results}">
+		<items>
+			<VBox>
+				<items>
+					<Label text="{ProcessStepData>AttributeLabel}"></Label>
+					<Text text="{ProcessStepData>Value}" class="sapUiSmallMarginBottom zvSMObjAttrChanged" visible="{= ${ProcessStepData>Value} !== ${ProcessStepData>ValueOld} }">
+						<tooltip>
+							<commons:RichTooltip text="Released value: {ProcessStepData>ValueOld}"></commons:RichTooltip>
+						</tooltip>
+					</Text>
+					<Text text="{ProcessStepData>Value}" class="sapUiSmallMarginBottom zvSMObjAttrUnchanged" visible="{= ${ProcessStepData>Value} === ${ProcessStepData>ValueOld} }">
+					</Text>
+				</items>
+			</VBox>
+		</items>
+	</VBox>
+</core:View>

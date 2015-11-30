@@ -9,14 +9,14 @@
 	-->
 	<VBox items="{ProcessStepData>/results}">
 		<items>
-			<HBox>
+			<VBox>
 				<items>
 					<Label text="{ProcessStepData>AttributeLabel}"></Label>
-					<Input value="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'IN' }"></Input>
-					<Input value="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'DT' }"></Input>
-					<CheckBox selected="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'CB' }"></CheckBox>
+					<Input value="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'IN' }" class="sapUiSmallMarginBottom"></Input>
+					<Input value="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'DT' }" class="sapUiSmallMarginBottom"></Input>
+					<CheckBox selected="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'CB' }" class="sapUiSmallMarginBottom"></CheckBox>
 				</items>
-			</HBox>
+			</VBox>
 		</items>
 	</VBox>
 	<Button press="onButtonSave" text="Save"></Button>
