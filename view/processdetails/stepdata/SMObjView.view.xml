@@ -12,13 +12,16 @@
 			<VBox>
 				<items>
 					<Label text="{ProcessStepData>AttributeLabel}"></Label>
-					<Text text="{ProcessStepData>Value}" class="sapUiSmallMarginBottom zvSMObjAttrChanged" visible="{= ${ProcessStepData>Value} !== ${ProcessStepData>ValueOld} }">
+					
+					<!-- ACTUAL/RELEASED not equal -->
+					<Text text="{path: 'ProcessStepData>', formatter: '.formatter.getSMObjViewValue'}" class="sapUiSmallMarginBottom zvSMObjAttrChanged" visible="{= ${ProcessStepData>Value} !== ${ProcessStepData>ValueOld} }">
 						<tooltip>
-							<commons:RichTooltip text="Released value: {ProcessStepData>ValueOld}"></commons:RichTooltip>
+							<commons:RichTooltip text="Released value: {path: 'ProcessStepData>', formatter: '.formatter.getSMObjViewValueOld'}"></commons:RichTooltip>
 						</tooltip>
 					</Text>
-					<Text text="{ProcessStepData>Value}" class="sapUiSmallMarginBottom zvSMObjAttrUnchanged" visible="{= ${ProcessStepData>Value} === ${ProcessStepData>ValueOld} }">
-					</Text>
+					
+					<!-- ACTUAL/RELEASED equal -->
+					<Text text="{path: 'ProcessStepData>', formatter: '.formatter.getSMObjViewValue'}" class="sapUiSmallMarginBottom zvSMObjAttrUnchanged" visible="{= ${ProcessStepData>Value} === ${ProcessStepData>ValueOld} }"></Text>
 				</items>
 			</VBox>
 		</items>

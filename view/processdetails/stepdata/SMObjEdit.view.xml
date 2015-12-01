@@ -13,7 +13,7 @@
 				<items>
 					<Label text="{ProcessStepData>AttributeLabel}"></Label>
 					<Input value="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'IN' }" class="sapUiSmallMarginBottom"></Input>
-					<Input value="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'DT' }" class="sapUiSmallMarginBottom"></Input>
+					<DatePicker visible="{= ${ProcessStepData>Type} === 'DT' }" value="{ProcessStepData>Value}" valueFormat="YYYYMMdd" class="sapUiSmallMarginBottom"></DatePicker>
 					<CheckBox selected="{ProcessStepData>Value}" visible="{= ${ProcessStepData>Type} === 'CB' }" class="sapUiSmallMarginBottom"></CheckBox>
 				</items>
 			</VBox>

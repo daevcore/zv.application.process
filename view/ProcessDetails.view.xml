@@ -46,8 +46,16 @@
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
+				<!--
 				<Button class="sapUiSmallMarginEnd" press="onPressProcessStepNext" text="{i18n>ProcessDetailsStepConfirm}" type="Accept" visible="{path: 'ProcessDetailsData>/ProcessStepCurrent', formatter: '.formatter.isVisibleStepConfirm'}"/>
 				<Button class="sapUiSmallMarginEnd" press="onPressProcessStepBack" text="{i18n>ProcessDetailsStepBack}" type="Reject" visible="{path: 'ProcessDetailsData>/ProcessStepCurrent', formatter: '.formatter.isVisibleStepBack'}"/>
+				-->
+				
+				<Button class="sapUiSmallMarginEnd" press="onPressProcessStepBack" icon="sap-icon://navigation-left-arrow" text="{i18n>ProcessDetailsStepBack}" type="Reject" visible="{= ${ProcessDetailsData>/ProcessStepCurrent/ProcessStepTransitionSet02/results}.length > 1}"/>
+				<Button class="sapUiSmallMarginEnd" press="onPressProcessStepBack" icon="sap-icon://navigation-left-arrow" text="{ProcessDetailsData>/ProcessStepCurrent/ProcessStepTransitionSet02/results/0/Text}" type="Reject" visible="{= ${ProcessDetailsData>/ProcessStepCurrent/ProcessStepTransitionSet02/results}.length === 1}"/>
+				
+				<Button class="sapUiSmallMarginEnd" press="onPressProcessStepNext" iconFirst="false" icon="sap-icon://navigation-right-arrow" text="{i18n>ProcessDetailsStepConfirm}" type="Accept" visible="{= ${ProcessDetailsData>/ProcessStepCurrent/ProcessStepTransitionSet01/results}.length > 1}"/>
+				<Button class="sapUiSmallMarginEnd" press="onPressProcessStepNext" iconFirst="false" icon="sap-icon://navigation-right-arrow" text="{ProcessDetailsData>/ProcessStepCurrent/ProcessStepTransitionSet01/results/0/Text}" type="Accept" visible="{= ${ProcessDetailsData>/ProcessStepCurrent/ProcessStepTransitionSet01/results}.length === 1}"/>
 			</Toolbar>
 		</footer>
 	</Page>

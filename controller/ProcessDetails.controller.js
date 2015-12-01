@@ -167,14 +167,16 @@ sap.ui.define([
 		
 		_doAction: function(sActionId, sActionParameter){
 			this.getOwnerComponent().getModel("oData").callFunction("/doAction", {
-				"method": "GET",
+				"method": "POST",
 				"urlParameters": {
 					Objid: this._objid,
 					ActionId: sActionId,
 					ActionParameter: sActionParameter
 				},
 				"success": function(oData) {
-					console.log(oData);
+					if(sActionId === "PROCESS_CANCEL"){
+						this._navToList();
+					}
 				}.bind(this),
 				"error": function(oError) {
 					this._messageError(oError);
@@ -184,7 +186,7 @@ sap.ui.define([
 		
 		_doActionStep: function(sStep, sActionId, sActionParameter){
 			this.getOwnerComponent().getModel("oData").callFunction("/doActionStep", {
-				"method": "GET",
+				"method": "POST",
 				"urlParameters": {
 					Objid: this._objid,
 					Step: sStep,
